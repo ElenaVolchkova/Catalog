@@ -1,4 +1,4 @@
-{% load static %}
+<!-- {% load static %} -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,8 +7,8 @@
     <title>Employees</title>
 </head>
 <body>
-	{% for employee in employees %}
-		<p>Employees {{employee}}</p>
+	{% for employee in employee_list %}
+		<p>{{ employee }}</p>
 	{% endfor %}
 </body>
 </html>
