@@ -10,8 +10,8 @@ class Employee(models.Model):
     employment_date = models.DateTimeField(blank=True, null=True)
     information_about_the_paid_salary = models.FloatField()
 
-    def save(self):
-        self.save()
+    # def save(self):
+    #     self.save()
 
     def __str__(self):
         return self.name
