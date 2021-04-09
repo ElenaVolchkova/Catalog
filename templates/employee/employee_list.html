@@ -7,8 +7,15 @@
     <title>Employees</title>
 </head>
 <body>
-	{% for employee in employee_list %}
-		<p>{{ employee }}</p>
-	{% endfor %}
+<ul>
+    {% for employee in employee_list %}
+    <li>
+        <p>ФИО: {{ employee.name }}</p>
+        <p>Должность: {{ employee.position }}</p>
+        <p><a href="#">Начальник: {{ employee.chief }}</a></p>
+        <p>Всего выплачено: {{ employee.paid_salary }}</p>
+    </li>
+    {% endfor %}
+</ul>
 </body>
 </html>

@@ -7,7 +7,7 @@ class Employee(models.Model):
     salary = models.FloatField()
     employment_date = models.DateTimeField(blank=True, null=True)
     paid_salary = models.FloatField()
-    boss = models.ForeignKey("self", on_delete=models.SET_NULL, null=True)
+    chief = models.ForeignKey("self", on_delete=models.SET_NULL, null=True)
     level = models.IntegerField(default=0)
 
     def __str__(self):
