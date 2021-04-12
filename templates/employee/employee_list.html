@@ -7,15 +7,21 @@
     <title>Employees</title>
 </head>
 <body>
-<ul>
+<table border="1">
+    <tr>
+        <th>ФИО:</th>
+        <th>Должность:</th>
+        <th>Начальник:</th>
+        <th>Всего выплачено:</th>
+    </tr>
     {% for employee in employee_list %}
-    <li>
-        <p>ФИО: {{ employee.name }}</p>
-        <p>Должность: {{ employee.position }}</p>
-        <p><a href="#">Начальник: {{ employee.chief }}</a></p>
-        <p>Всего выплачено: {{ employee.paid_salary }}</p>
-    </li>
+    <tr>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.position }}</td>
+        <td><a href="#">{{ employee.chief }}</a></td>
+        <td>{{ employee.paid_salary }}</td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 </body>
 </html>
