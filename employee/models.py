@@ -18,13 +18,13 @@ class Employee(models.Model):
         max_length=20,
         choices=POSITION_CHOICES,
         default=JUNIOR,
-    )
-    name = models.CharField(max_length=200)
-    salary = models.FloatField()
-    employment_date = models.DateField(null=True, blank=True)
-    paid_salary = models.FloatField()
-    chief = models.ForeignKey("employee.Employee", on_delete=models.SET_NULL, null=True, blank=True)
-    level = models.IntegerField(default=0)
+        verbose_name='Должность')
+    name = models.CharField(max_length=200, verbose_name='ФИО')
+    salary = models.FloatField(verbose_name='Зарплата')
+    employment_date = models.DateField(null=True, blank=True, verbose_name='Дата приема на работу')
+    paid_salary = models.FloatField(verbose_name='Всего выплачено')
+    chief = models.ForeignKey("employee.Employee", on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Начальник')
+    level = models.IntegerField(default=0, verbose_name='Уровень')
 
     def __str__(self):
         return self.name
