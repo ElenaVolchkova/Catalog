@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+# Celery Configuration Options
+CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +44,8 @@ INSTALLED_APPS = [
     'employee',
     'rest_framework',
     'django_filters',
+    'django_seed',
+    'django_celery',
     # 'employee.apps.EmployeeConfig'
 ]
 
