@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'employee',
     'rest_framework',
+    'django_filters',
     # 'employee.apps.EmployeeConfig'
 ]
 
