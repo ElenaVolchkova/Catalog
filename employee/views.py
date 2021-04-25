@@ -6,14 +6,24 @@ from django.contrib.auth.models import User
 
 
 
-class EmployeeList(generics.ListAPIView):
+class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = serializers.UserSerializer
+
+
+class EmployeeList(generics.ListAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = serializers.EmployeeSerializer
 
 
 class EmployeeDetail(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = serializers.UserSerializer
+    queryset = Employee.objects.all()
+    serializer_class = serializers.EmployeeSerializer
 
 
 def employee_list(request):
