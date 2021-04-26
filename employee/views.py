@@ -8,8 +8,10 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
-
+from .tasks import salary_calculation
 from .serializers import EmployeeSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
+
 
 
 class UserList(generics.ListAPIView):

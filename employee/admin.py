@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Employee
 from django.urls import reverse
 from django.utils.html import format_html
+from rest_framework.authtoken.admin import TokenAdmin
 
 
 # @admin.site.register(Employee)
@@ -12,8 +13,10 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_display_links = ('name', 'link_to_chief',)
     search_fields = ('name',)
 
-    def clean_paid_salary(self, request, queryset):
+    async def clean_paid_salary(self, request, queryset):
         queryset.update(paid_salary=0)
+        if len(queryset) > 20:
+            await queryset.update(paid_salary=0)
 
     def link_to_chief(self, obj):
         link = reverse("admin:employee_employee_change", args=[obj.chief.id]) if obj.chief else "#"
@@ -21,3 +24,5 @@ class EmployeeAdmin(admin.ModelAdmin):
         return format_html('<a href="{}">Начальник</a>', link, chief_name)
 
 admin.site.register(Employee, EmployeeAdmin)
+
+

@@ -1,16 +1,18 @@
-from celery import shared_task
+from celery import Celery
+from celery import task
+from .models import Employee
+from django.conf import settings
 
+celery = Celery('tasks', broker='amqp://guest@localhost//')
+celery.config_from_object('django.conf:settings')
+celery.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+import os
 
-@shared_task
-def add(x, y):
-    return x + y
+os.environ[ 'DJANGO_SETTINGS_MODULE' ] = "employee.settings"
 
-
-@shared_task
-def mul(x, y):
-    return x * y
-
-
-@shared_task
-def xsum(numbers):
-    return sum(numbers)
+@task
+def salary_calculation(salary_id):
+    salary = Employee.objects.get(id=salary_id)
+    new_salary = salary + (salary / 160) * 2
+    salary = new_salary
+    return salary

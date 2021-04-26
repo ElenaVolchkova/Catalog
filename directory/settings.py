@@ -28,9 +28,21 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Celery Configuration Options
-CELERY_TIMEZONE = "Europe/Moscow"
-CELERY_TASK_TRACK_STARTED = True
-CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_TIMEZONE = "Europe/Minsk"
+CELERY_TASK_TIME_LIMIT = 5 * 60
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_SCHEDULE = [
+    {
+        'my_little_office.apps.staff.tasks.accrue_salary': {
+            'task': 'employee.apps.employee.tasks.accrue_salary',
+            'schedule': 10.0
+        },
+    }
+]
 
 # Application definition
 
@@ -45,9 +57,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'django_seed',
-    'django_celery',
+    'djcelery',
+    'rest_framework.authtoken'
     # 'employee.apps.EmployeeConfig'
 ]
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+#     'PAGINATE_BY': 10
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

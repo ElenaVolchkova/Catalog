@@ -1,4 +1,10 @@
 from django.db import models
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+
 
 
 class Employee(models.Model):
@@ -23,7 +29,8 @@ class Employee(models.Model):
     salary = models.FloatField(verbose_name='Зарплата')
     employment_date = models.DateField(null=True, blank=True, verbose_name='Дата приема на работу')
     paid_salary = models.FloatField(verbose_name='Всего выплачено')
-    chief = models.ForeignKey("employee.Employee", on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Начальник')
+    chief = models.ForeignKey("employee.Employee", on_delete=models.SET_NULL, null=True, blank=True,
+                              verbose_name='Начальник')
     level = models.IntegerField(default=0, verbose_name='Уровень')
 
     class Meta:
