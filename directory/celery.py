@@ -15,9 +15,7 @@ app.config_from_object('django.conf:settings')
 
 app.autodiscover_tasks(settings.INSTALLED_APPS)
 
-# This will edit schedule every time, if task not exist.
-# If there are need to add task one time -- maybe this is good
-# reason to write this tsk in data migration
+
 app.conf.beat_schedule = {
     'Accrue salary to all workers': {
         'task': 'employee.apps.employee.tasks.salary_calculation',

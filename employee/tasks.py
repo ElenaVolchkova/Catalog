@@ -1,3 +1,4 @@
+import os
 from celery import Celery
 from celery import task
 from .models import Employee
@@ -6,7 +7,7 @@ from django.conf import settings
 celery = Celery('tasks', broker='amqp://guest@localhost//')
 celery.config_from_object('django.conf:settings')
 celery.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
-import os
+
 
 os.environ[ 'DJANGO_SETTINGS_MODULE' ] = "employee.settings"
 
