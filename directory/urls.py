@@ -20,5 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('employee.urls')),
     path('api/', include('employee.urls')),
+    path('api/auth/', include('djoser.urls.authtoken')),
     path('login/', include('rest_framework.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
 ]

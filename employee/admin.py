@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models import Employee
 from django.urls import reverse
 from django.utils.html import format_html
-from rest_framework.authtoken.admin import TokenAdmin
+from django.contrib.auth.models import User
+from rest_framework import permissions
 
 
 # @admin.site.register(Employee)
@@ -23,6 +24,9 @@ class EmployeeAdmin(admin.ModelAdmin):
         chief_name = obj.chief.name if obj.chief else "Не задан"
         return format_html('<a href="{}">Начальник</a>', link, chief_name)
 
+
+# class EmployeePermissions(Employee):
+#     permissions = [('have_access_api', 'Have access API')]
+
+
 admin.site.register(Employee, EmployeeAdmin)
-
-

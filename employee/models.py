@@ -1,4 +1,6 @@
 from django.db import models
+from rest_framework import permissions
+from django.contrib.auth.models import User
 
 
 class Employee(models.Model):
@@ -26,9 +28,18 @@ class Employee(models.Model):
     chief = models.ForeignKey("employee.Employee", on_delete=models.SET_NULL, null=True, blank=True,
                               verbose_name='Начальник')
     level = models.IntegerField(default=0, verbose_name='Уровень')
+    employee_status = models.BooleanField(default=False, verbose_name='is_staff')
 
-    class Meta:
-        permissions = [('have_access_api', 'Have access API')]
 
     def __str__(self):
         return self.name
+
+# class EmployeeStatus(models.Model):
+#     status = models.BooleanField(default=False, verbose_name='is_staff')
+
+    def get_permissions(self):
+        if self.status == False:
+            permission_classes = [permissions.IsAuthenticated]
+        else:
+            permission_classes = [permissions.IsAdminUser]
+        return [permission() for permission in permission_classes]
