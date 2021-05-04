@@ -16,24 +16,26 @@ class EmployeeAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
     # import asyncio
-    # import asyncpg
     #
     # async def run():
     #     conn = await asyncpg.connect(user='catalog', password='catalog',
     #                                  database='catalog', host='127.0.0.1')
     #     values = await conn.fetch(
-    #         'SELECT * FROM catalog;
+    #         'SELECT * FROM employee_employee'
     #     )
     #     await conn.close()
     #
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(run())
 
-    async def clean_paid_salary(self, request, queryset):
-        if len(queryset) > 20:
-            await queryset.update(paid_salary=0)
-        else:
-            queryset.update(paid_salary=0)
+    # async def clean_paid_salary(self, request, queryset):
+    #     if len(queryset) > 20:
+    #         await queryset.update(paid_salary=0)
+    #     else:
+    #         queryset.update(paid_salary=0)
+
+    def clean_paid_salary(self, request, queryset):
+        queryset.update(paid_salary=0)
 
     def link_to_chief(self, obj):
         link = reverse("admin:employee_employee_change", args=[obj.chief.id]) if obj.chief else "#"
