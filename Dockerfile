@@ -1,5 +1,5 @@
 #base image
-FROM python:3.8
+FROM python:3-onbuild
 
 #maintainer
 LABEL Author="CodeGenes"
@@ -22,6 +22,8 @@ WORKDIR /app
 
 #copy the app code to image working directory
 COPY ./app /app
+ENTRYPOINT ["start_app.sh"]
+CMD ["python", "manage.py"]
 
 #create user to run the app(it is not recommended to use root)
 #we create user called user with -D -> meaning no need for home directory

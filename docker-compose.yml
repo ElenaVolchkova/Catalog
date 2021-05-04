@@ -17,15 +17,39 @@
 #      - "5432:5432"
 #    restart: unless-stopped
 
-version: "3"
+#version: "3"
+#services:
+#  ddda:
+#    build:
+#      context: .
+#    ports:
+#      - "8000:8000"
+#    volumes:
+#      - ./app:/app
+#    command: >
+#      sh -c "python manage.py runserver 0.0.0.0:8000"
+#
+
+version: '3.3'
 services:
-  ddda:
-    build:
-      context: .
-    ports:
-      - "8000:8000"
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: catalog
+      POSTGRES_PASSWORD: catalog
+      PGDATA: /data/postgres
+      volumes:
+        - postgres:/data/postgres
+      ports:
+        - "5432:5432"
+      restart: unless-stopped
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./app:/app
-    command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
 
